@@ -8,15 +8,21 @@ import datetime as dt
 with open('config.json') as f:
 	config = json.load(f)
 
+base = ''
+camera = None
+
+if config['os'] == 'win':
+	base = config['win']
+	camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+elif config['os'] == 'unix':
+	base = config['unix']
+	camera = cv2.VideoCapture(0)
+else:
+	print('ERR: Config os: ' + config['os'])
+
 ext = config['ext']
-# base = config['win']
-base = config['unix']
 folder = base + config['active']
-
 img_counter = 1
-
-# camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-camera = cv2.VideoCapture(0)
 
 while True:
 	ret, frame = camera.read()

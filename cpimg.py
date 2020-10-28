@@ -12,8 +12,7 @@ import datetime as dt
 with open('config.json') as f:
 	config = json.load(f)
 
-# base = config['win']
-base = config['unix']
+base = config['win'] if config['os'] == 'win' else config['unix']
 source = base + config['active']
 dest = base + config['archive']
 zips = base + config['zips']
